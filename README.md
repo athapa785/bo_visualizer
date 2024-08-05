@@ -4,8 +4,8 @@ This PyQt5-based tool provides an interactive interface to visualize generator m
 
 Key Features:
 
-Visual Model Exploration: Easily explore how the generator model's predictions change with different variable values.
+- Visual Model Exploration: Easily explore how the generator model's predictions change with different variable values.
 
-Reference Point Customization: Set reference points for unselected variables to create focused visualizations.
+- Reference Point Customization: Set reference points for unselected variables to create focused visualizations.
 
-Acquisition Function Insight: Optionally display the acquisition function to understand how the model chooses the next optimization point.
+- Acquisition Function Insight: Optionally display the acquisition function to understand how the model chooses the next optimization point.
