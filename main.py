@@ -36,6 +36,7 @@ class PlotWidget(QWidget):
             # Variable dropdown
             var_dropdown = QComboBox()
             var_dropdown.addItems(vocs.variable_names)
+            var_dropdown.setCurrentText(vocs.variable_names[i])
             self.variable_dropdowns.append(var_dropdown)
             self.grid_layout.addWidget(QLabel(f"Variable {i+1}:"), i, 0)
             self.grid_layout.addWidget(var_dropdown, i, 1)
@@ -53,6 +54,12 @@ class PlotWidget(QWidget):
             include_checkbox.stateChanged.connect(self.update_ref_inputs)  # Connect to update function
             self.include_checkboxes.append(include_checkbox)
             self.grid_layout.addWidget(include_checkbox, i, 4)
+        
+        for checkbox in self.include_checkboxes:
+            checkbox.stateChanged.connect(self.enforce_checkbox_rule)
+
+        self.last_unchecked = None  # Track the last unchecked checkbox
+
 
         layout.addLayout(self.grid_layout)
 
@@ -72,10 +79,18 @@ class PlotWidget(QWidget):
 
         self.update_ref_inputs()  # Initialize reference inputs based on checkboxes
         
+    def enforce_checkbox_rule(self, state):
+        checked_count = sum(cb.isChecked() for cb in self.include_checkboxes)
+
+        if checked_count == 0:  # No checkboxes checked
+            if self.last_unchecked:  # Re-check the last unchecked one
+                self.last_unchecked.setChecked(True)
+        else:
+            if state == 0:  # A checkbox is being unchecked
+                self.last_unchecked = self.sender()  # Remember the unchecked one
         
 
     def update_ref_inputs(self):
-        checked_count = sum(cb.isChecked() for cb in self.include_checkboxes)
         for i, ref_input in enumerate(self.ref_inputs):
             ref_input.setEnabled(not self.include_checkboxes[i].isChecked())
 
