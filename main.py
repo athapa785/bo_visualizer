@@ -7,7 +7,7 @@ Created on Fri Jul 12 09:51:08 2024
 
 import sys
 from PyQt5.QtWidgets import (
-    QApplication, QWidget, QVBoxLayout, QHBoxLayout, QComboBox, QLineEdit,
+    QApplication, QWidget, QVBoxLayout, QComboBox, QLineEdit,
     QCheckBox, QPushButton, QLabel, QGridLayout, QSizePolicy
 )
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -17,11 +17,16 @@ from xopt.generators.bayesian.visualize import visualize_generator_model
 from model_visualization_example import X, vocs
 
 class PlotWidget(QWidget):
-    def __init__(self, parent=None, max_plot_vars=2):
+    def __init__(self, parent=None, max_plot_vars=2, xopt_obj=None):
         super().__init__(parent)
+        
+        # Use provided Xopt object, or default to X from the example
+        self.X = xopt_obj if xopt_obj else X
+        
         self.figure = Figure()
         self.canvas = FigureCanvas(self.figure)
         self.max_plot_vars = max_plot_vars  # Maximum number of variables to plot
+        
 
         layout = QVBoxLayout()
         
@@ -111,7 +116,7 @@ class PlotWidget(QWidget):
     
         self.figure.clear()
         fig, ax = visualize_generator_model(
-            X.generator,
+            self.X.generator,
             variable_names=variable_names,
             reference_point=reference_point,
             show_acquisition=self.show_acq_checkbox.isChecked()
@@ -125,7 +130,8 @@ class PlotWidget(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = PlotWidget()
+    xopt_instance = X # You can pass a different Xopt object here if needed
+    window = PlotWidget(xopt_obj=xopt_instance) # Pass the Xopt instance
     window.show()
     sys.exit(app.exec_())
 
