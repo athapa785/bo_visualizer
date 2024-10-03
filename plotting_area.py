@@ -8,12 +8,16 @@ Created on Thu Oct  3 14:18:33 2024
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+from PyQt5.QtWidgets import QSizePolicy
 from xopt.generators.bayesian.visualize import visualize_generator_model
 
 class PlottingArea:
     def __init__(self, parent=None):
         self.figure = Figure()
         self.canvas = FigureCanvas(self.figure)
+        self.canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.canvas.updateGeometry()
+
     
     def update_plot(self, X, vocs, variable_names, reference_point, show_acquisition):
         self.figure.clear()

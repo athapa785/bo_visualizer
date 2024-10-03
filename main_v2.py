@@ -24,16 +24,26 @@ class PlotWidget(QWidget):
         main_layout = QHBoxLayout(self)
 
         controls_layout = QVBoxLayout()
-        
+
+        # Add controls
         controls_layout.addLayout(self.ui_components.create_axis_layout())
         controls_layout.addWidget(self.ui_components.create_reference_inputs())
         controls_layout.addWidget(self.ui_components.create_options_section())
         controls_layout.addLayout(self.ui_components.create_buttons())
 
         main_layout.addLayout(controls_layout)
-        main_layout.addWidget(self.plotting_area.canvas)
 
+        # Make sure the plotting area is expanding, set stretch to make it fill the space
+        main_layout.addWidget(self.plotting_area.canvas, stretch=1)
+
+
+        self.setLayout(main_layout)
+
+        # Connect update button to plot update function
         self.ui_components.update_button.clicked.connect(self.update_plot)
+
+        # Ensure the canvas geometry is updated explicitly
+        self.plotting_area.canvas.updateGeometry()
 
     def update_plot(self):
         variable_names = [self.ui_components.x_axis_combo.currentText(), self.ui_components.y_axis_combo.currentText()]
@@ -53,7 +63,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     xopt_instance = X  # You can pass a different Xopt object here if needed
     window = PlotWidget(xopt_obj=xopt_instance)
-    window.setWindowTitle("Modularized UI with Bayesian Plot")
+    window.setWindowTitle("BO Visualizer")
     window.resize(1000, 600)
     window.show()
     sys.exit(app.exec_())
