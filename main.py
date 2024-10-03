@@ -17,7 +17,7 @@ from xopt.generators.bayesian.visualize import visualize_generator_model
 from model_visualization_example import X, vocs
 
 class PlotWidget(QWidget):
-    def __init__(self, parent=None, max_plot_vars=2, xopt_obj=None):
+    def __init__(self, parent=None, xopt_obj=None):
         super().__init__(parent)
         
         # Use provided Xopt object, or default to X from the example
