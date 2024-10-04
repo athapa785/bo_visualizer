@@ -68,7 +68,7 @@ QCheckBox::indicator {
     width: 18px;
     height: 18px;
     border-radius: 5px;
-    background-color: #2A4D5E;  /* Default background when unchecked */
+    background-color: #5A8EA5;  /* Default background when unchecked */
     border: 1px solid #1F3D49;
 }
 
@@ -78,7 +78,7 @@ QCheckBox::indicator:checked {
 }
 
 QCheckBox::indicator:unchecked {
-    background-color: #2A4D5E;  /* Background when unchecked */
+    background-color: #5A8EA5;  /* Background when unchecked */
 }
 
 /* QPushButton - Logbook and Update Buttons (Brighter) */
@@ -124,7 +124,7 @@ QSlider::handle:horizontal {
 }
 
 QSlider::sub-page:horizontal {
-    background: #2A4D5E;
+    background: #5A8EA5;
     border-radius: 4px;
 }
 
