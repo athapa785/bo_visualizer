@@ -38,12 +38,23 @@ class PlotWidget(QWidget):
 
 
         self.setLayout(main_layout)
+        self.apply_style_sheet()
 
         # Connect update button to plot update function
         self.ui_components.update_button.clicked.connect(self.update_plot)
 
         # Ensure the canvas geometry is updated explicitly
         self.plotting_area.canvas.updateGeometry()
+
+        
+
+    def apply_style_sheet(self):
+        # Load the style.qss file
+        with open("style.qss", "r") as file:
+            style_sheet = file.read()
+
+        # Apply the loaded style sheet
+        self.setStyleSheet(style_sheet)    
 
     def update_plot(self):
         variable_names = [self.ui_components.x_axis_combo.currentText(), self.ui_components.y_axis_combo.currentText()]

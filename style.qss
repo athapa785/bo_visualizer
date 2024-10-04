@@ -1,0 +1,129 @@
+/* General window background */
+QWidget {
+    background-color: #315B6D;  /* Dark teal/blue background */
+    color: #EDEDED;  /* Light text color */
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 12px;
+}
+
+/* ComboBox (Dropdowns) styling */
+QComboBox {
+    background-color: #A6CCD8;  /* Light blue background */
+    color: #1D404F;  /* Dark blue text */
+    border: 1px solid #315B6D;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 15px;
+    border-left-width: 1px;
+    border-left-color: #315B6D;
+    border-left-style: solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #A6CCD8;
+    border: 1px solid #315B6D;
+    color: #1D404F;
+}
+
+/* Buttons styling */
+QPushButton {
+    background-color: #A6CCD8;  /* Light blue button */
+    color: #1D404F;  /* Dark blue text */
+    border: 1px solid #315B6D;
+    padding: 8px;
+    border-radius: 8px;  /* Rounded corners */
+}
+
+QPushButton:hover {
+    background-color: #85B2C6;  /* Slightly darker blue when hovered */
+}
+
+QPushButton:pressed {
+    background-color: #5D8FA5;  /* Darker blue when pressed */
+}
+
+/* QLineEdit (Input fields) */
+QLineEdit {
+    background-color: #A6CCD8;  /* Light blue background */
+    border: 1px solid #315B6D;
+    border-radius: 6px;
+    padding: 5px;
+    color: #1D404F;
+}
+
+/* Checkboxes styling */
+QCheckBox {
+    color: #EDEDED;  /* Light text color */
+    padding: 5px;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;  /* Rounded circular checkboxes */
+    border: 1px solid #315B6D;
+    background-color: #A6CCD8;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #5D8FA5;  /* Blue when checked */
+    border: 1px solid #1D404F;
+}
+
+/* QLabel styling */
+QLabel {
+    color: #EDEDED;  /* Light text color */
+    font-size: 12px;
+}
+
+/* QScrollBar styling */
+QScrollBar:vertical {
+    background: #A6CCD8;
+    width: 12px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:vertical {
+    background: #5D8FA5;  /* Blue handle */
+    min-height: 20px;
+    border-radius: 6px;
+}
+
+/* QSlider styling */
+QSlider::groove:horizontal {
+    height: 10px;
+    background-color: #CCCCCC;  /* Light gray slider groove */
+    border-radius: 5px;
+}
+
+QSlider::handle:horizontal {
+    background-color: #A6CCD8;  /* Light blue slider handle */
+    border: 1px solid #315B6D;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;  /* Rounded circular handle */
+}
+
+/* Customize QPushButton for Logbook and Update */
+QPushButton#logbookButton {
+    background-color: #F0F0F0;
+    color: #1D404F;
+}
+
+QPushButton#updateButton {
+    background-color: #A6CCD8;
+    color: #1D404F;
+}
+
+/* ScrollArea Background */
+QScrollArea {
+    background-color: #A6CCD8;  /* Light blue scroll area background */
+    border: 1px solid #315B6D;
+}

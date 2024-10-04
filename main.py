@@ -83,7 +83,15 @@ class PlotWidget(QWidget):
         self.canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         self.update_ref_inputs()  # Initialize reference inputs based on checkboxes
-        
+
+    def apply_style_sheet(self):
+        # Load the style.qss file
+        with open("style.qss", "r") as file:
+            style_sheet = file.read()
+
+        # Apply the loaded style sheet
+        self.setStyleSheet(style_sheet)
+
     def enforce_checkbox_rule(self, state):
         checked_count = sum(cb.isChecked() for cb in self.include_checkboxes)
 
