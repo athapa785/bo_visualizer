@@ -6,8 +6,16 @@ Created on Thu Oct  3 14:18:24 2024
 @author: aaditya
 """
 
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Oct  3 14:18:24 2024
+
+@author: aaditya
+"""
+
 from PyQt5.QtWidgets import (
-    QVBoxLayout, QHBoxLayout, QComboBox, QLabel, QGroupBox, QLineEdit, QSlider, QPushButton, QGridLayout, QCheckBox
+    QVBoxLayout, QHBoxLayout, QComboBox, QLabel, QGroupBox, QTableWidget, QTableWidgetItem, QSlider, QPushButton, QGridLayout, QCheckBox, QHeaderView
 )
 from PyQt5.QtCore import Qt
 
@@ -37,18 +45,22 @@ class UIComponents:
         return x_y_axis_layout
 
     def create_reference_inputs(self):
-        reference_group = QGroupBox("Reference Point")
-        reference_layout = QVBoxLayout()
+        # Create a table with 2 columns: one for variables and one for reference points
+        self.reference_table = QTableWidget(len(self.vocs.variable_names), 2)
+        self.reference_table.setHorizontalHeaderLabels(["Variable", "Reference Point"])
+        self.reference_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
-        self.ref_inputs = []
-        for i in range(len(self.vocs.variable_names)):
-            ref_input = QLineEdit("0.0")
-            self.ref_inputs.append(ref_input)
-            reference_layout.addWidget(QLabel(f"x{i}:"))
-            reference_layout.addWidget(ref_input)
-        
-        reference_group.setLayout(reference_layout)
-        return reference_group
+        self.ref_inputs = []  # List to store QTableWidgetItems for reference points
+
+        for i, var_name in enumerate(self.vocs.variable_names):
+            variable_item = QTableWidgetItem(var_name)
+            self.reference_table.setItem(i, 0, variable_item)  # Set variable name in the first column
+
+            reference_point_item = QTableWidgetItem("0.0")  # Default reference point
+            self.ref_inputs.append(reference_point_item)
+            self.reference_table.setItem(i, 1, reference_point_item)  # Set reference point in the second column
+
+        return self.reference_table
 
     def create_options_section(self):
         options_group = QGroupBox("Options")
@@ -86,5 +98,8 @@ class UIComponents:
 
         button_layout.addWidget(self.logbook_button)
         button_layout.addWidget(self.update_button)
+
+        self.logbook_button.setObjectName("logbook_button")
+        self.update_button.setObjectName("update_button")
         
         return button_layout

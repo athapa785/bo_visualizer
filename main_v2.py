@@ -7,11 +7,13 @@ Created on Thu Oct  3 14:18:00 2024
 """
 
 import sys
-from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget, QVBoxLayout, QSizePolicy
+from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget, QVBoxLayout
 from model_visualization_example import X, vocs
 from ui_components import UIComponents
 from plotting_area import PlottingArea
 from model_logic import ModelLogic
+from PyQt5.QtCore import Qt
+
 
 class PlotWidget(QWidget):
     def __init__(self, parent=None, xopt_obj=None):
@@ -22,7 +24,6 @@ class PlotWidget(QWidget):
         self.plotting_area = PlottingArea()
 
         main_layout = QHBoxLayout(self)
-
         controls_layout = QVBoxLayout()
 
         # Add controls
@@ -32,7 +33,6 @@ class PlotWidget(QWidget):
         controls_layout.addLayout(self.ui_components.create_buttons())
 
         main_layout.addLayout(controls_layout)
-
         # Make sure the plotting area is expanding, set stretch to make it fill the space
         main_layout.addWidget(self.plotting_area.canvas, stretch=1)
 
@@ -40,13 +40,35 @@ class PlotWidget(QWidget):
         self.setLayout(main_layout)
         self.apply_style_sheet()
 
+         # Set default selections for X-axis and Y-axis dropdowns
+        self.ui_components.x_axis_combo.setCurrentIndex(0)  # Default to x0 for X-axis
+        self.ui_components.y_axis_combo.setCurrentIndex(1)  # Default to x1 for Y-axis
+
         # Connect update button to plot update function
         self.ui_components.update_button.clicked.connect(self.update_plot)
+
+        # Connect dropdown selections to reference point updates
+        self.ui_components.x_axis_combo.currentIndexChanged.connect(self.on_axis_selection_changed)
+        self.ui_components.y_axis_combo.currentIndexChanged.connect(self.on_axis_selection_changed)
 
         # Ensure the canvas geometry is updated explicitly
         self.plotting_area.canvas.updateGeometry()
 
+        # Trigger the axis selection changed to disable reference points for default selected variables
+        self.on_axis_selection_changed()
+
+    def on_axis_selection_changed(self):
+        """Update reference points as soon as the dropdown selections change."""
+        selected_variables = [
+            self.ui_components.x_axis_combo.currentText(),
+            self.ui_components.y_axis_combo.currentText()
+        ]
+        selected_variables = [var for var in selected_variables if var != ""]
         
+        # Update the reference point table immediately based on the new selections
+        self.update_reference_point_table(selected_variables)
+
+
 
     def apply_style_sheet(self):
         # Load the style.qss file
@@ -57,17 +79,42 @@ class PlotWidget(QWidget):
         self.setStyleSheet(style_sheet)    
 
     def update_plot(self):
-        variable_names = [self.ui_components.x_axis_combo.currentText(), self.ui_components.y_axis_combo.currentText()]
-        variable_names = [var for var in variable_names if var != ""]
+        # Get selected variables
+        selected_variables = [self.ui_components.x_axis_combo.currentText(), self.ui_components.y_axis_combo.currentText()]
+        selected_variables = [var for var in selected_variables if var != ""]
 
-        reference_point = self.model_logic.get_reference_points(self.ui_components.ref_inputs, variable_names)
+        # Disable and gray out the reference points for selected variables
+        self.update_reference_point_table(selected_variables)
+
+        # Get reference points for non-selected variables
+        reference_point = self.model_logic.get_reference_points(self.ui_components.ref_inputs, selected_variables)
+
+        # Update the plot with the selected variables and reference points
         self.plotting_area.update_plot(
             self.model_logic.X,
             vocs,
-            variable_names,
+            selected_variables,
             reference_point,
             self.ui_components.acq_func_checkbox.isChecked()
         )
+
+    def update_reference_point_table(self, selected_variables):
+        """ Disable and gray out reference points for selected variables """
+        for i, var_name in enumerate(self.model_logic.vocs.variable_names):
+            # Get the reference point item from the table
+            ref_item = self.ui_components.ref_inputs[i]
+
+            if var_name in selected_variables:
+                # Disable editing and gray out the background
+                ref_item.setFlags(ref_item.flags() & ~Qt.ItemIsEditable)
+                ref_item.setBackground(Qt.lightGray)
+            else:
+                # Re-enable editing and set background to white
+                ref_item.setFlags(ref_item.flags() | Qt.ItemIsEditable)
+                ref_item.setBackground(Qt.white)
+
+        # Force the table to refresh and update its view
+        self.ui_components.reference_table.viewport().update()
 
 
 if __name__ == "__main__":
