@@ -28,7 +28,7 @@ class PlottingArea(QWidget):
         # Create a new figure and canvas
         figure = Figure()
         canvas = FigureCanvas(figure)
-        
+
         # Generate the new plot using visualize_generator_model
         fig, ax = visualize_generator_model(
             X.generator,
@@ -36,6 +36,9 @@ class PlottingArea(QWidget):
             reference_point=reference_point,
             show_acquisition=show_acquisition
         )
+
+        # Adjust padding inside the figure
+        fig.tight_layout(pad=1.5)  # Adds padding between plot elements
 
         # Set the new figure to the canvas and draw it
         canvas.figure = fig

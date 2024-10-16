@@ -34,7 +34,7 @@ class PlotWidget(QWidget):
 
         main_layout.addLayout(controls_layout)
 
-        # Add the entire PlottingArea widget (not canvas) and make sure it stretches
+        # Add the entire PlottingArea widget and make sure it stretches
         main_layout.addWidget(self.plotting_area, stretch=1)
 
         self.setLayout(main_layout)
