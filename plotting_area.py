@@ -5,27 +5,44 @@ Created on Thu Oct  3 14:18:33 2024
 
 @author: aaditya
 """
-
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
-from PyQt5.QtWidgets import QSizePolicy
+from PyQt5.QtWidgets import QVBoxLayout, QWidget
 from xopt.generators.bayesian.visualize import visualize_generator_model
 
-class PlottingArea:
+class PlottingArea(QWidget):
     def __init__(self, parent=None):
-        self.figure = Figure()
-        self.canvas = FigureCanvas(self.figure)
-        self.canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.canvas.updateGeometry()
+        super().__init__(parent)
 
-    
+        # Create a layout for the plot area without pre-filling it with a plot
+        self.layout = QVBoxLayout()
+        self.setLayout(self.layout)
+
     def update_plot(self, X, vocs, variable_names, reference_point, show_acquisition):
-        self.figure.clear()
+        # Clear the existing layout (remove previous plot if any)
+        for i in reversed(range(self.layout.count())):
+            widget_to_remove = self.layout.itemAt(i).widget()
+            if widget_to_remove is not None:
+                widget_to_remove.setParent(None)
+
+        # Create a new figure and canvas
+        figure = Figure()
+        canvas = FigureCanvas(figure)
+        
+        # Generate the new plot using visualize_generator_model
         fig, ax = visualize_generator_model(
             X.generator,
             variable_names=variable_names,
             reference_point=reference_point,
             show_acquisition=show_acquisition
         )
-        self.canvas.figure = fig
-        self.canvas.draw()
+
+        # Set the new figure to the canvas and draw it
+        canvas.figure = fig
+        canvas.draw()
+
+        # Add the new canvas to the layout
+        self.layout.addWidget(canvas)
+
+        # Ensure the layout is updated
+        self.updateGeometry()

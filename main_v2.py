@@ -13,7 +13,7 @@ from ui_components import UIComponents
 from plotting_area import PlottingArea
 from model_logic import ModelLogic
 from PyQt5.QtCore import Qt
-
+import qdarkstyle
 
 class PlotWidget(QWidget):
     def __init__(self, parent=None, xopt_obj=None):
@@ -21,7 +21,7 @@ class PlotWidget(QWidget):
 
         self.model_logic = ModelLogic(xopt_obj if xopt_obj else X, vocs)
         self.ui_components = UIComponents(vocs)
-        self.plotting_area = PlottingArea()
+        self.plotting_area = PlottingArea()  # The plotting area will remain empty initially
 
         main_layout = QHBoxLayout(self)
         controls_layout = QVBoxLayout()
@@ -33,14 +33,14 @@ class PlotWidget(QWidget):
         controls_layout.addLayout(self.ui_components.create_buttons())
 
         main_layout.addLayout(controls_layout)
-        # Make sure the plotting area is expanding, set stretch to make it fill the space
-        main_layout.addWidget(self.plotting_area.canvas, stretch=1)
 
+        # Add the entire PlottingArea widget (not canvas) and make sure it stretches
+        main_layout.addWidget(self.plotting_area, stretch=1)
 
         self.setLayout(main_layout)
         self.apply_style_sheet()
 
-         # Set default selections for X-axis and Y-axis dropdowns
+        # Set default selections for X-axis and Y-axis dropdowns
         self.ui_components.x_axis_combo.setCurrentIndex(0)  # Default to x0 for X-axis
         self.ui_components.y_axis_combo.setCurrentIndex(1)  # Default to x1 for Y-axis
 
@@ -50,9 +50,6 @@ class PlotWidget(QWidget):
         # Connect dropdown selections to reference point updates
         self.ui_components.x_axis_combo.currentIndexChanged.connect(self.on_axis_selection_changed)
         self.ui_components.y_axis_combo.currentIndexChanged.connect(self.on_axis_selection_changed)
-
-        # Ensure the canvas geometry is updated explicitly
-        self.plotting_area.canvas.updateGeometry()
 
         # Trigger the axis selection changed to disable reference points for default selected variables
         self.on_axis_selection_changed()
@@ -76,7 +73,13 @@ class PlotWidget(QWidget):
             style_sheet = file.read()
 
         # Apply the loaded style sheet
-        self.setStyleSheet(style_sheet)    
+        #self.setStyleSheet(style_sheet)
+         
+        dark_stylesheet = qdarkstyle.load_stylesheet_pyqt5() 
+        self.setStyleSheet(dark_stylesheet)
+
+        with open("style.qss", "r") as file:
+            app.setStyleSheet(app.styleSheet() + file.read())
 
     def update_plot(self):
         # Get selected variables

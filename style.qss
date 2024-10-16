@@ -58,29 +58,6 @@ QGroupBox::title {
     border-radius: 5px;
 }
 
-/* Checkboxes in Options Section */
-QCheckBox {
-    color: #E6F1F5;
-    spacing: 10px;
-}
-
-QCheckBox::indicator {
-    width: 18px;
-    height: 18px;
-    border-radius: 5px;
-    background-color: #5A8EA5;  /* Default background when unchecked */
-    border: 1px solid #1F3D49;
-}
-
-QCheckBox::indicator:checked {
-    background-color: #E6F1F5;  /* Default checkmark behavior with lighter background */
-    border: 1px solid #1F3D49;
-}
-
-QCheckBox::indicator:unchecked {
-    background-color: #5A8EA5;  /* Background when unchecked */
-}
-
 /* QPushButton - Logbook and Update Buttons (Brighter) */
 QPushButton#logbook_button, QPushButton#update_button {
     background-color: #5A8EA5;

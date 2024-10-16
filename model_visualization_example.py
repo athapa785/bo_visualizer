@@ -57,8 +57,6 @@ X = Xopt(evaluator=evaluator, generator=generator, vocs=vocs)
 #  the data to `X.data`, calls to `X.step()` will ignore the random generation and
 #  proceed to generating points via Bayesian optimization.
 
-# In[6]:
-
 
 # call X.random_evaluate(n_samples) to generate + evaluate initial points
 X.random_evaluate(n_samples=5)
