@@ -18,7 +18,7 @@ class PlottingArea(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-    def update_plot(self, X, vocs, variable_names, reference_point, show_acquisition):
+    def update_plot(self, X, variable_names, reference_point, show_acquisition, show_samples, show_prior_mean, show_feasibility, n_grid):
         # Clear the existing layout (remove previous plot if any)
         for i in reversed(range(self.layout.count())):
             widget_to_remove = self.layout.itemAt(i).widget()
@@ -34,7 +34,11 @@ class PlottingArea(QWidget):
             X.generator,
             variable_names=variable_names,
             reference_point=reference_point,
-            show_acquisition=show_acquisition
+            show_acquisition=show_acquisition,
+            show_samples=show_samples,
+            show_prior_mean=show_prior_mean,
+            show_feasibility=show_feasibility,
+            n_grid=n_grid
         )
 
         # Adjust padding inside the figure

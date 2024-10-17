@@ -34,13 +34,20 @@ class UIComponents:
         self.y_axis_combo = QComboBox()
         self.y_axis_combo.addItems(self.vocs.variable_names)
 
-        x_y_axis_layout.addWidget(QLabel("Select Variable"), 0, 0)
+        # Create the Y-axis checkbox
+        self.y_axis_checkbox = QCheckBox("Include Variable 2")
+        self.y_axis_checkbox.setChecked(True)  # Checked by default
+
+        # Add the X-axis widgets
+        x_y_axis_layout.addWidget(QLabel("Variable 1"), 0, 0)
         x_y_axis_layout.addWidget(self.x_axis_combo, 0, 1)
         x_y_axis_layout.addWidget(x_label, 0, 2)
 
-        x_y_axis_layout.addWidget(QLabel("Select Variable"), 1, 0)
+        # Add the Y-axis widgets with the checkbox
+        x_y_axis_layout.addWidget(QLabel("Variable 2"), 1, 0)
         x_y_axis_layout.addWidget(self.y_axis_combo, 1, 1)
         x_y_axis_layout.addWidget(y_label, 1, 2)
+        x_y_axis_layout.addWidget(self.y_axis_checkbox, 2, 1)  # Checkbox at column 3
         
         return x_y_axis_layout
 
@@ -72,6 +79,8 @@ class UIComponents:
         self.show_prior_mean_checkbox = QCheckBox("Show Prior Mean")
         self.show_feasibility_checkbox = QCheckBox("Show Feasibility")
 
+        self.show_samples_checkbox.setChecked(True)
+
         options_layout.addWidget(self.acq_func_checkbox)
         options_layout.addWidget(self.show_samples_checkbox)
         options_layout.addWidget(self.show_prior_mean_checkbox)
@@ -79,7 +88,7 @@ class UIComponents:
 
         self.n_grid_slider = QSlider(Qt.Horizontal)
         self.n_grid_slider.setMinimum(1)
-        self.n_grid_slider.setMaximum(100)
+        self.n_grid_slider.setMaximum(200)
         self.n_grid_slider.setValue(50)
         self.n_grid_slider.setTickPosition(QSlider.TicksBelow)
 

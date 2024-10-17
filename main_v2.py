@@ -55,18 +55,28 @@ class PlotWidget(QWidget):
 
         # Trigger the axis selection changed to disable reference points for default selected variables
         self.on_axis_selection_changed()
+        # Connect the Y-axis checkbox state change to the axis selection changed handler
+        self.ui_components.y_axis_checkbox.stateChanged.connect(self.on_axis_selection_changed)
+
+        self.resize(1000, 720)
 
     def on_axis_selection_changed(self):
         """Update reference points as soon as the dropdown selections change."""
-        selected_variables = [
-            self.ui_components.x_axis_combo.currentText(),
-            self.ui_components.y_axis_combo.currentText()
-        ]
-        selected_variables = [var for var in selected_variables if var != ""]
-        
-        # Update the reference point table immediately based on the new selections
-        self.update_reference_point_table(selected_variables)
+        self.selected_variables = []
 
+        # Always include X-axis variable
+        x_var = self.ui_components.x_axis_combo.currentText()
+        if x_var:
+            self.selected_variables.append(x_var)
+
+        # Include Y-axis variable only if the checkbox is checked
+        if self.ui_components.y_axis_checkbox.isChecked():
+            y_var = self.ui_components.y_axis_combo.currentText()
+            if y_var:
+                self.selected_variables.append(y_var)
+
+        # Update the reference point table based on the selected variables
+        self.update_reference_point_table(self.selected_variables)
 
 
     def apply_style_sheet(self):
@@ -78,8 +88,7 @@ class PlotWidget(QWidget):
 
     def update_plot(self):
         # Get selected variables
-        selected_variables = [self.ui_components.x_axis_combo.currentText(), self.ui_components.y_axis_combo.currentText()]
-        selected_variables = [var for var in selected_variables if var != ""]
+        selected_variables = self.selected_variables
 
         # Disable and gray out the reference points for selected variables
         self.update_reference_point_table(selected_variables)
@@ -87,13 +96,48 @@ class PlotWidget(QWidget):
         # Get reference points for non-selected variables
         reference_point = self.model_logic.get_reference_points(self.ui_components.ref_inputs, selected_variables)
 
+
+        #Resizing window to fit plots properly
+        # Resizing window to fit plots properly
+        acq_chk = self.ui_components.acq_func_checkbox.isChecked()
+        prior_mean_chk = self.ui_components.show_prior_mean_checkbox.isChecked()
+        feas_chk = self.ui_components.show_feasibility_checkbox.isChecked()
+
+        if self.ui_components.y_axis_checkbox.isChecked() == True:
+
+            # Set width based on prior_mean_chk
+            width = 1400 if prior_mean_chk else 1000
+
+            # Set height based on acq_chk and feas_chk
+            if acq_chk and not prior_mean_chk and feas_chk:
+                height = 820
+            elif acq_chk or feas_chk:
+                height = 780
+            else:
+                height = 720
+
+        else:
+
+            width = 1000
+
+            # Set height based on acq_chk and feas_chk
+            if acq_chk and feas_chk:
+                height = 780
+            else:
+                height = 720
+
+        self.resize(width, height)
+
         # Update the plot with the selected variables and reference points
         self.plotting_area.update_plot(
             self.model_logic.X,
-            vocs,
             selected_variables,
             reference_point,
-            self.ui_components.acq_func_checkbox.isChecked()
+            self.ui_components.acq_func_checkbox.isChecked(),
+            self.ui_components.show_samples_checkbox.isChecked(),
+            self.ui_components.show_prior_mean_checkbox.isChecked(),
+            self.ui_components.show_feasibility_checkbox.isChecked(),
+            self.ui_components.n_grid_slider.value()
         )
 
     def update_reference_point_table(self, selected_variables):
@@ -128,9 +172,8 @@ if __name__ == "__main__":
 
     # Wrap the window with QtModern's ModernWindow for the modern UI
     window.setWindowTitle("BO Visualizer")
-    window.resize(1000, 720)
-    
-    # Show the modern window
+    #window.resize(1400, 1050)
+
     window.show()
 
     sys.exit(app.exec_())

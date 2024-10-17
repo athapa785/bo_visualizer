@@ -32,8 +32,6 @@ QComboBox {
 QComboBox QAbstractItemView {
     background-color: #3A5B8C;
     color: #E6E6E6;
-    selection-background-color: #4C7AA8;
-    selection-color: #FFFFFF;
 }
 
 /* QSlider with gradient from light blue to dark blue */
@@ -62,12 +60,6 @@ QTableWidget {
     color: #E6E6E6;
 }
 
-QTableWidget::item {
-    selection-background-color: #73a1d0;
-    selection-color: #FFFFFF;
-}
-
-
 
 QTableWidget::item:selected {
     background-color: #4C7AA8;  /* Lighter blue when selected */
@@ -86,7 +78,7 @@ QCheckBox::indicator {
 }
 
 QCheckBox::indicator:checked {
-    background-color: #ffffff;  /* Darker blue when checked */
+    background-color: #00ffaa;  /* Darker blue when checked */
     border: 2px solid white;    /* White border even when checked */
 }
 
@@ -96,6 +88,6 @@ QCheckBox::indicator:unchecked:hover {
 }
 
 QCheckBox::indicator:checked:hover {
-    background-color: #dcedff;  /* Darker blue on hover when checked */
+    background-color: #a0ff9f;  /* Darker blue on hover when checked */
     border: 2px solid white;    /* White border remains */
 }
