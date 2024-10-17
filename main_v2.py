@@ -13,6 +13,7 @@ from ui_components import UIComponents
 from plotting_area import PlottingArea
 from model_logic import ModelLogic
 from PyQt5.QtCore import Qt
+import qtmodern.styles
 import qdarkstyle
 
 class PlotWidget(QWidget):
@@ -51,6 +52,8 @@ class PlotWidget(QWidget):
         self.ui_components.x_axis_combo.currentIndexChanged.connect(self.on_axis_selection_changed)
         self.ui_components.y_axis_combo.currentIndexChanged.connect(self.on_axis_selection_changed)
 
+        self.setSizePolicy(self.sizePolicy().Expanding, self.sizePolicy().Expanding)
+
         # Trigger the axis selection changed to disable reference points for default selected variables
         self.on_axis_selection_changed()
 
@@ -68,18 +71,15 @@ class PlotWidget(QWidget):
 
 
     def apply_style_sheet(self):
-        # Load the style.qss file
-        with open("style.qss", "r") as file:
-            style_sheet = file.read()
+        # Load QDarkStyle stylesheet
+        #dark_stylesheet = qdarkstyle.load_stylesheet_pyqt5()
+        #self.setStyleSheet(dark_stylesheet)
 
-        # Apply the loaded style sheet
-        #self.setStyleSheet(style_sheet)
-         
-        dark_stylesheet = qdarkstyle.load_stylesheet_pyqt5() 
-        self.setStyleSheet(dark_stylesheet)
-
+        # Load and apply custom stylesheet
         with open("style.qss", "r") as file:
-            app.setStyleSheet(app.styleSheet() + file.read())
+            custom_stylesheet = file.read()
+
+        self.setStyleSheet(custom_stylesheet)
 
     def update_plot(self):
         # Get selected variables
@@ -111,10 +111,12 @@ class PlotWidget(QWidget):
                 # Disable editing and gray out the background
                 ref_item.setFlags(ref_item.flags() & ~Qt.ItemIsEditable)
                 ref_item.setBackground(Qt.lightGray)
+                ref_item.setForeground(Qt.white)
             else:
                 # Re-enable editing and set background to white
                 ref_item.setFlags(ref_item.flags() | Qt.ItemIsEditable)
                 ref_item.setBackground(Qt.white)
+                ref_item.setForeground(Qt.black)
 
         # Force the table to refresh and update its view
         self.ui_components.reference_table.viewport().update()
@@ -122,9 +124,18 @@ class PlotWidget(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    xopt_instance = X  # You can pass a different Xopt object here if needed
-    window = PlotWidget(xopt_obj=xopt_instance)
+
+    # Apply QtModern dark styles
+    #qtmodern.styles.light(app)
+
+    # Initialize the main window
+    window = PlotWidget(xopt_obj=X)
+
+    # Wrap the window with QtModern's ModernWindow for the modern UI
     window.setWindowTitle("BO Visualizer")
-    window.resize(1000, 600)
+    window.resize(1200, 800)
+    
+    # Show the modern window
     window.show()
+
     sys.exit(app.exec_())

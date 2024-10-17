@@ -1,125 +1,120 @@
-/* General background and text */
-QWidget {
-    background-color: #2A4D5E;  /* Dark blue background */
-    color: #E6F1F5;  /* Light text */
-    font-family: "Arial";  /* Modern font */
+/* General background and text color */
+* {
+    background-color: #1A2F56;  /* Dark blue background */
+    color: #E6E6E6;             /* Light gray text */
+    selection-background-color: #4C7AA8;  /* Lighter blue selection */
+    selection-color: #FFFFFF;
+}
+
+/* QPushButton (light blue to dark blue transition) */
+QPushButton {
+    background-color: #5A8FD2;  /* Light blue button */
+    color: #FFFFFF;             /* White text */
+    border: 1px solid #4A6F91;  /* Medium blue border */
+    border-radius: 5px;
+    padding: 6px;
     font-size: 14px;
 }
 
-/* QComboBox - for dropdowns */
+QPushButton:hover {
+    background-color: #4C7AA8;  /* Slightly darker blue when hovered */
+}
+
+QPushButton:pressed {
+    background-color: #3A5B8C;  /* Darker blue when pressed */
+}
+
+/* QLineEdit and QTextEdit */
+QLineEdit, QTextEdit, QPlainTextEdit {
+    background-color: #3A5B8C;  /* Medium blue input field */
+    color: #E6E6E6;
+    border: 1px solid #4A6F91;
+    padding: 5px;
+    border-radius: 5px;
+    selection-background-color: #4C7AA8;
+    selection-color: #FFFFFF;
+}
+
+/* QComboBox */
 QComboBox {
-    background-color: #4B7188;
-    color: #E6F1F5;
-    border: 1px solid #1F3D49;
-    border-radius: 10px;
-    padding: 5px;
-    min-width: 150px;
-}
-
-QComboBox::drop-down {
-    border: none;
-}
-
-QComboBox QAbstractItemView {
-    background-color: #4B7188;
-    color: #E6F1F5;
-    border: 1px solid #1F3D49;
-}
-
-/* QTableWidget - Reference Points Table */
-QTableWidget {
-    background-color: #CFE7ED;
-    color: #2A4D5E;
-    border: none;
-    gridline-color: #B5C8CF;
-}
-
-QHeaderView::section {
-    background-color: #4B7188;
-    color: #E6F1F5;
-    padding: 5px;
-    border: none;
-}
-
-/* QGroupBox - Options Section */
-QGroupBox {
-    background-color: #4B7188;
-    border: 1px solid #1F3D49;
-    border-radius: 10px;
-    margin-top: 15px;
-    color: #E6F1F5;
-}
-
-QGroupBox::title {
-    subcontrol-origin: margin;
-    subcontrol-position: top center;
-    padding: 0 3px;
-    background-color: #4B7188;
+    background-color: #4A6F91;  /* Slightly darker blue dropdown */
+    color: #E6E6E6;
     border-radius: 5px;
 }
 
-/* QPushButton - Logbook and Update Buttons (Brighter) */
-QPushButton#logbook_button, QPushButton#update_button {
-    background-color: #5A8EA5;
-    color: #E6F1F5;
-    border: 1px solid #1F3D49;
-    border-radius: 10px;
-    padding: 8px;
+QComboBox::drop-down {
+    background-color: #4A6F91;
 }
 
-QPushButton#logbook_button:hover, QPushButton#update_button:hover {
-    background-color: #7AA6BF;  /* Brighter shade on hover */
+QComboBox QAbstractItemView {
+    background-color: #3A5B8C;
+    color: #E6E6E6;
+    selection-background-color: #4C7AA8;
+    selection-color: #FFFFFF;
 }
 
-/* QPushButton - General Buttons */
-QPushButton {
-    background-color: #4B7188;
-    color: #E6F1F5;
-    border: 1px solid #1F3D49;
-    border-radius: 10px;
-    padding: 8px;
-}
-
-QPushButton:hover {
-    background-color: #6F91A5;
-}
-
-/* QSlider - Slider */
+/* QSlider with gradient from light blue to dark blue */
 QSlider::groove:horizontal {
-    border: 1px solid #1F3D49;
-    height: 8px;
-    background: #4B7188;
-    border-radius: 4px;
+    background-color: #4C7AA8;  /* Light blue groove */
+    height: 10px;
+    border-radius: 5px;
+    margin: 0px;
 }
 
 QSlider::handle:horizontal {
-    background: #E6F1F5;
-    border: 1px solid #1F3D49;
-    width: 20px;
-    margin: -5px 0;
-    border-radius: 10px;
+    background-color: #3A5B8C;  /* Medium blue handle */
+    border-radius: 5px;
+    width: 18px;
+    height: 18px;
+    margin: -4px 0;
 }
 
-QSlider::sub-page:horizontal {
-    background: #5A8EA5;
-    border-radius: 4px;
+QSlider::handle:horizontal:hover {
+    background-color: #4A6F91;  /* Darker blue on hover */
 }
 
-/* ScrollBar - for scrollable areas */
-QScrollBar:vertical {
-    background-color: #4B7188;
-    width: 15px;
-    margin: 22px 0 22px 0;
+/* QTableWidget with gradient background */
+QTableWidget {
+    background-color: #2A497F;  /* Darker blue table background */
+    color: #E6E6E6;
 }
 
-QScrollBar::handle:vertical {
-    background-color: #1F3D49;
-    min-height: 20px;
-    border-radius: 7px;
+QTableWidget::item {
+    selection-background-color: #4C7AA8;
+    selection-color: #FFFFFF;
 }
 
-QScrollBar::add-line:vertical,
-QScrollBar::sub-line:vertical {
-    border: none;
-    background: none;
+/* Alternating row colors */
+QTableWidget::item:alternate {
+    background-color: #223A66;  /* Darker row background */
+}
+
+QTableWidget::item:selected {
+    background-color: #4C7AA8;  /* Lighter blue when selected */
+}
+
+/* QTabWidget */
+QTabWidget::pane {
+    background-color: #1A2F56;
+}
+
+QTabBar::tab {
+    background-color: #3A5B8C;  /* Medium blue tab */
+    color: #E6E6E6;
+    padding: 6px;
+}
+
+QTabBar::tab:selected {
+    background-color: #4C7AA8;  /* Lighter blue when selected */
+}
+
+QTabBar::tab:hover {
+    background-color: #5A8FD2;  /* Lightest blue on hover */
+}
+
+/* QStatusBar */
+QStatusBar {
+    background-color: #1A2F56;
+    color: #E6E6E6;
+    border-top: 1px solid #1A345C;
 }
