@@ -37,13 +37,8 @@ QLineEdit, QTextEdit, QPlainTextEdit {
 
 /* QComboBox */
 QComboBox {
-    background-color: #4A6F91;  /* Slightly darker blue dropdown */
+    background-color: #4C7AA8;  /* Slightly darker blue dropdown */
     color: #E6E6E6;
-    border-radius: 5px;
-}
-
-QComboBox::drop-down {
-    background-color: #4A6F91;
 }
 
 QComboBox QAbstractItemView {
@@ -117,4 +112,30 @@ QStatusBar {
     background-color: #1A2F56;
     color: #E6E6E6;
     border-top: 1px solid #1A345C;
+}
+
+
+/* Checkboxes */
+
+
+QCheckBox::indicator {
+    width: 12px;
+    height: 12px;
+    background-color: #1A2F56;  /* Blue background for unchecked state */
+    border: 2px solid white;    /* White border for visibility */
+}
+
+QCheckBox::indicator:checked {
+    background-color: #ffffff;  /* Darker blue when checked */
+    border: 2px solid white;    /* White border even when checked */
+}
+
+QCheckBox::indicator:unchecked:hover {
+    background-color: #4C7AA8;  /* Lighter blue when hovered */
+    border: 2px solid white;    /* Maintain white border on hover */
+}
+
+QCheckBox::indicator:checked:hover {
+    background-color: #dcedff;  /* Darker blue on hover when checked */
+    border: 2px solid white;    /* White border remains */
 }

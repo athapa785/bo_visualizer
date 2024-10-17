@@ -14,7 +14,6 @@ from plotting_area import PlottingArea
 from model_logic import ModelLogic
 from PyQt5.QtCore import Qt
 import qtmodern.styles
-import qdarkstyle
 
 class PlotWidget(QWidget):
     def __init__(self, parent=None, xopt_obj=None):
@@ -71,10 +70,6 @@ class PlotWidget(QWidget):
 
 
     def apply_style_sheet(self):
-        # Load QDarkStyle stylesheet
-        #dark_stylesheet = qdarkstyle.load_stylesheet_pyqt5()
-        #self.setStyleSheet(dark_stylesheet)
-
         # Load and apply custom stylesheet
         with open("style.qss", "r") as file:
             custom_stylesheet = file.read()
@@ -126,14 +121,14 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     # Apply QtModern dark styles
-    #qtmodern.styles.light(app)
+    qtmodern.styles.light(app)
 
     # Initialize the main window
     window = PlotWidget(xopt_obj=X)
 
     # Wrap the window with QtModern's ModernWindow for the modern UI
     window.setWindowTitle("BO Visualizer")
-    window.resize(1200, 800)
+    window.resize(1000, 720)
     
     # Show the modern window
     window.show()

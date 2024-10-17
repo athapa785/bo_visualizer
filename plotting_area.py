@@ -38,7 +38,7 @@ class PlottingArea(QWidget):
         )
 
         # Adjust padding inside the figure
-        fig.tight_layout(pad=1.5)  # Adds padding between plot elements
+        fig.tight_layout(pad=2)  # Adds padding between plot elements
 
         # Set the new figure to the canvas and draw it
         canvas.figure = fig
