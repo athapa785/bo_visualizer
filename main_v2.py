@@ -21,7 +21,7 @@ class PlotWidget(QWidget):
 
         self.model_logic = ModelLogic(xopt_obj if xopt_obj else X, vocs)
         self.ui_components = UIComponents(vocs)
-        self.plotting_area = PlottingArea()  # The plotting area will remain empty initially
+        self.plotting_area = PlottingArea()
 
         main_layout = QHBoxLayout(self)
         controls_layout = QVBoxLayout()

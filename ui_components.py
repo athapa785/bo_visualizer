@@ -55,6 +55,7 @@ class UIComponents:
         for i, var_name in enumerate(self.vocs.variable_names):
             variable_item = QTableWidgetItem(var_name)
             self.reference_table.setItem(i, 0, variable_item)  # Set variable name in the first column
+            variable_item.setFlags(variable_item.flags() & ~Qt.ItemIsEditable) # Make the variables non-editable
 
             reference_point_item = QTableWidgetItem("0.0")  # Default reference point
             self.ref_inputs.append(reference_point_item)

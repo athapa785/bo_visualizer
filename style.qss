@@ -2,8 +2,6 @@
 * {
     background-color: #1A2F56;  /* Dark blue background */
     color: #E6E6E6;             /* Light gray text */
-    selection-background-color: #4C7AA8;  /* Lighter blue selection */
-    selection-color: #FFFFFF;
 }
 
 /* QPushButton (light blue to dark blue transition) */
@@ -24,16 +22,6 @@ QPushButton:pressed {
     background-color: #3A5B8C;  /* Darker blue when pressed */
 }
 
-/* QLineEdit and QTextEdit */
-QLineEdit, QTextEdit, QPlainTextEdit {
-    background-color: #3A5B8C;  /* Medium blue input field */
-    color: #E6E6E6;
-    border: 1px solid #4A6F91;
-    padding: 5px;
-    border-radius: 5px;
-    selection-background-color: #4C7AA8;
-    selection-color: #FFFFFF;
-}
 
 /* QComboBox */
 QComboBox {
@@ -75,44 +63,16 @@ QTableWidget {
 }
 
 QTableWidget::item {
-    selection-background-color: #4C7AA8;
+    selection-background-color: #73a1d0;
     selection-color: #FFFFFF;
 }
 
-/* Alternating row colors */
-QTableWidget::item:alternate {
-    background-color: #223A66;  /* Darker row background */
-}
+
 
 QTableWidget::item:selected {
     background-color: #4C7AA8;  /* Lighter blue when selected */
 }
 
-/* QTabWidget */
-QTabWidget::pane {
-    background-color: #1A2F56;
-}
-
-QTabBar::tab {
-    background-color: #3A5B8C;  /* Medium blue tab */
-    color: #E6E6E6;
-    padding: 6px;
-}
-
-QTabBar::tab:selected {
-    background-color: #4C7AA8;  /* Lighter blue when selected */
-}
-
-QTabBar::tab:hover {
-    background-color: #5A8FD2;  /* Lightest blue on hover */
-}
-
-/* QStatusBar */
-QStatusBar {
-    background-color: #1A2F56;
-    color: #E6E6E6;
-    border-top: 1px solid #1A345C;
-}
 
 
 /* Checkboxes */
