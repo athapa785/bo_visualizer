@@ -26,12 +26,12 @@ QPushButton:pressed {
 /* QComboBox */
 QComboBox {
     background-color: #4C7AA8;  /* Slightly darker blue dropdown */
-    color: #E6E6E6;
+    color: #ffffff;
 }
 
 QComboBox QAbstractItemView {
     background-color: #3A5B8C;
-    color: #E6E6E6;
+    color: #ffffff;
 }
 
 /* QSlider with gradient from light blue to dark blue */
@@ -53,6 +53,7 @@ QSlider::handle:horizontal {
 QSlider::handle:horizontal:hover {
     background-color: #4A6F91;  /* Darker blue on hover */
 }
+
 
 /* QTableWidget with gradient background */
 QTableWidget {
@@ -90,4 +91,9 @@ QCheckBox::indicator:unchecked:hover {
 QCheckBox::indicator:checked:hover {
     background-color: #a0ff9f;  /* Darker blue on hover when checked */
     border: 2px solid white;    /* White border remains */
+}
+
+
+QSpinBox::backdrop{
+    background-color:#a2a6a8;
 }

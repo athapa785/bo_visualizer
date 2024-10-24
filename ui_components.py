@@ -15,7 +15,7 @@ Created on Thu Oct  3 14:18:24 2024
 """
 
 from PyQt5.QtWidgets import (
-    QVBoxLayout, QHBoxLayout, QComboBox, QLabel, QGroupBox, QTableWidget, QTableWidgetItem, QSlider, QPushButton, QGridLayout, QCheckBox, QHeaderView
+    QVBoxLayout, QHBoxLayout, QComboBox, QLabel, QGroupBox, QTableWidget, QTableWidgetItem, QSpinBox, QPushButton, QGridLayout, QCheckBox, QHeaderView
 )
 from PyQt5.QtCore import Qt
 
@@ -23,6 +23,7 @@ class UIComponents:
     def __init__(self, vocs):
         self.vocs = vocs
 
+    
     def create_axis_layout(self):
         x_y_axis_layout = QGridLayout()
         x_label = QLabel("X-axis")
@@ -73,6 +74,7 @@ class UIComponents:
     def create_options_section(self):
         options_group = QGroupBox("Options")
         options_layout = QVBoxLayout()
+        spinbox_h_layout = QHBoxLayout()
 
         self.acq_func_checkbox = QCheckBox("Acquisition Function")
         self.show_samples_checkbox = QCheckBox("Show Samples")
@@ -86,17 +88,18 @@ class UIComponents:
         options_layout.addWidget(self.show_prior_mean_checkbox)
         options_layout.addWidget(self.show_feasibility_checkbox)
 
-        self.n_grid_slider = QSlider(Qt.Horizontal)
-        self.n_grid_slider.setMinimum(1)
-        self.n_grid_slider.setMaximum(200)
-        self.n_grid_slider.setValue(50)
-        self.n_grid_slider.setTickPosition(QSlider.TicksBelow)
+        self.n_grid = QSpinBox()
+        self.n_grid.setRange(25, 100)
+        self.n_grid.setValue(50)
+        self.n_grid.setMinimum(25)
 
-        n_grid_label = QLabel("N_grid")
-        n_grid_label.setAlignment(Qt.AlignCenter)
-        
-        options_layout.addWidget(n_grid_label)
-        options_layout.addWidget(self.n_grid_slider)
+        n_grid_label = QLabel("No. of grid points:")
+
+        spinbox_h_layout.addWidget(n_grid_label)
+        spinbox_h_layout.addWidget(self.n_grid)
+
+
+        options_layout.addLayout(spinbox_h_layout)
 
         options_group.setLayout(options_layout)
         return options_group

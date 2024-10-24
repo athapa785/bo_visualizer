@@ -12,14 +12,15 @@
 # Ignore all warnings
 import warnings
 warnings.filterwarnings("ignore")
-import time
 import math
 
 from xopt.vocs import VOCS
 
 # define variables, function objective and constraining function
 vocs = VOCS(
-    variables={"x0": [0., 2. * math.pi], "x1":[0., 2.*math.pi], "x2":[0., 2.*math.pi]},
+    variables={"x00": [0., 2. * math.pi], "x01":[0., 2.*math.pi], "x02":[0., 2.*math.pi],
+                "x03": [0., 2. * math.pi], "x04":[0., 2.*math.pi], "x05":[0., 2.*math.pi],
+                             },
     objectives={"f": "MINIMIZE"},
     constraints={"c": ["LESS_THAN", 0]}
 )
@@ -30,8 +31,8 @@ vocs = VOCS(
 import numpy as np
 
 def test_function(input_dict):
-    return {"f": np.sin(input_dict["x0"]*input_dict["x1"]),"c": np.cos
-    (input_dict["x0"])}
+    return {"f": np.sin(input_dict["x00"]*input_dict["x01"]),"c": np.cos
+    (input_dict["x00"])}
 
 
 # ## Create Xopt objects
@@ -63,3 +64,9 @@ X.random_evaluate(n_samples=5)
 X.generator.train_model()
 
 
+"""
+ "x06": [0., 2. * math.pi], "x07":[0., 2.*math.pi], "x08":[0., 2.*math.pi],
+ "x09": [0., 2. * math.pi], "x10":[0., 2.*math.pi], "x11":[0., 2.*math.pi],
+ "x12": [0., 2. * math.pi], "x13":[0., 2.*math.pi], "x14":[0., 2.*math.pi],
+ "x15": [0., 2. * math.pi], "x16":[0., 2.*math.pi], "x17":[0., 2.*math.pi] 
+"""

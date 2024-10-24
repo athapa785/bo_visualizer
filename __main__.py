@@ -137,7 +137,7 @@ class PlotWidget(QWidget):
             self.ui_components.show_samples_checkbox.isChecked(),
             self.ui_components.show_prior_mean_checkbox.isChecked(),
             self.ui_components.show_feasibility_checkbox.isChecked(),
-            self.ui_components.n_grid_slider.value()
+            self.ui_components.n_grid.value()
         )
 
     def update_reference_point_table(self, selected_variables):
