@@ -8,8 +8,15 @@ Created on Thu Oct  3 14:18:45 2024
 
 class ModelLogic:
     def __init__(self, xopt_obj, vocs):
-        self.X = xopt_obj
+        self.xopt_obj = xopt_obj
         self.vocs = vocs
+
+    def update_xopt(self, xopt_obj):
+        if xopt_obj is not None:
+            self.xopt_obj = xopt_obj
+            self.vocs = xopt_obj.vocs
+        else:
+            print("Warning: xopt_obj is None in update_xopt")
 
     def get_reference_points(self, ref_inputs, variable_names):
         reference_point = {}

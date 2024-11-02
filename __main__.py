@@ -15,12 +15,12 @@ from model_logic import ModelLogic
 from PyQt5.QtCore import Qt
 import qtmodern.styles
 
-class PlotWidget(QWidget):
+class BOPlotWidget(QWidget):
     def __init__(self, parent=None, xopt_obj=None):
         super().__init__(parent)
 
         self.model_logic = ModelLogic(xopt_obj if xopt_obj else X, vocs)
-        self.ui_components = UIComponents(vocs)
+        self.ui_components = UIComponents(xopt_obj.vocs if xopt_obj else vocs)
         self.plotting_area = PlottingArea()
 
         main_layout = QHBoxLayout(self)
@@ -130,7 +130,7 @@ class PlotWidget(QWidget):
 
         # Update the plot with the selected variables and reference points
         self.plotting_area.update_plot(
-            self.model_logic.X,
+            self.model_logic.xopt_obj,
             selected_variables,
             reference_point,
             self.ui_components.acq_func_checkbox.isChecked(),
@@ -159,16 +159,21 @@ class PlotWidget(QWidget):
 
         # Force the table to refresh and update its view
         self.ui_components.reference_table.viewport().update()
-
+    
+    def update_routine(self, xopt_obj):
+        self.xopt_obj = xopt_obj
+        self.model_logic.update_xopt(self.xopt_obj)
+        self.ui_components.update_vocs(self.xopt_obj.vocs)
+        self.update_plot()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
-    # Apply QtModern dark styles
+    # Apply QtModern styles
     qtmodern.styles.light(app)
 
     # Initialize the main window
-    window = PlotWidget(xopt_obj=X)
+    window = BOPlotWidget(xopt_obj=X)
 
     # Wrap the window with QtModern's ModernWindow for the modern UI
     window.setWindowTitle("BO Visualizer")

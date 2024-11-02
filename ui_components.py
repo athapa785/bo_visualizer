@@ -6,14 +6,6 @@ Created on Thu Oct  3 14:18:24 2024
 @author: aaditya
 """
 
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Oct  3 14:18:24 2024
-
-@author: aaditya
-"""
-
 from PyQt5.QtWidgets import (
     QVBoxLayout, QHBoxLayout, QComboBox, QLabel, QGroupBox, QTableWidget, QTableWidgetItem, QSpinBox, QPushButton, QGridLayout, QCheckBox, QHeaderView
 )
@@ -23,6 +15,8 @@ class UIComponents:
     def __init__(self, vocs):
         self.vocs = vocs
 
+    def update_vocs(self, vocs):
+        self.vocs = vocs
     
     def create_axis_layout(self):
         x_y_axis_layout = QGridLayout()
@@ -91,7 +85,6 @@ class UIComponents:
         self.n_grid = QSpinBox()
         self.n_grid.setRange(25, 100)
         self.n_grid.setValue(50)
-        self.n_grid.setMinimum(25)
 
         n_grid_label = QLabel("No. of grid points:")
 
@@ -116,3 +109,4 @@ class UIComponents:
         self.update_button.setObjectName("update_button")
         
         return button_layout
+    

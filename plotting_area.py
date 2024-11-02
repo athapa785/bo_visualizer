@@ -18,7 +18,7 @@ class PlottingArea(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-    def update_plot(self, X, variable_names, reference_point, show_acquisition, show_samples, show_prior_mean, show_feasibility, n_grid):
+    def update_plot(self, xopt_obj, variable_names, reference_point, show_acquisition, show_samples, show_prior_mean, show_feasibility, n_grid):
         # Clear the existing layout (remove previous plot if any)
         for i in reversed(range(self.layout.count())):
             widget_to_remove = self.layout.itemAt(i).widget()
@@ -31,7 +31,7 @@ class PlottingArea(QWidget):
 
         # Generate the new plot using visualize_generator_model
         fig, ax = visualize_generator_model(
-            X.generator,
+            xopt_obj.generator,
             variable_names=variable_names,
             reference_point=reference_point,
             show_acquisition=show_acquisition,
